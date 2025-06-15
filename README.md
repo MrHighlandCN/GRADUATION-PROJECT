@@ -127,4 +127,4 @@ flutter run
 
 
 ## Notes
-- Remember to change API_URL in lib/const to the url your server running on
+- Remember to change API_URL in lib/const.dart file to the url your server running on
