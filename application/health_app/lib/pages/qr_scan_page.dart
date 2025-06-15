@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:health_app/pages/qr_result_page.dart';
+import 'package:health_app/pages/qr_result_page.dart';
 import 'package:health_app/services/user_services.dart';
 import 'package:health_app/widgets/custom_footer.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -47,13 +47,14 @@ class _QrScanPageState extends State<QrScanPage> {
           String decryptedString = _decryptAES(rawValue,
               dotenv.env['AES_KEY'] ?? '', dotenv.env['IV_STRING'] ?? '');
           Map<String, dynamic> jsonData = jsonDecode(decryptedString);
+          // debugPrint('Mã QR: $decryptedString');
 
           final response = await userServices().addNewRecord(jsonData);
           // ScaffoldMessenger.of(context).showSnackBar(
           //   SnackBar(content: Text(response ? "Đồng bộ thành công" : "Đồng bộ thất bại")),
           // );
 
-          // Thực hiện các hành động khác tại đây, ví dụ: chuyển màn hình hoặc xử lý dữ liệu
+          // // Thực hiện các hành động khác tại đây, ví dụ: chuyển màn hình hoặc xử lý dữ liệu
 
           // Navigator.push(
           //     context,
@@ -63,7 +64,7 @@ class _QrScanPageState extends State<QrScanPage> {
           //               code: decryptedString,
           //             )));
 
-          // // Hiển thị dialog thông báo
+          // // // Hiển thị dialog thông báo
           await showDialog(
             context: context,
             builder: (BuildContext context) {

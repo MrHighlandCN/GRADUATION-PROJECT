@@ -11,7 +11,6 @@ const _maxTokens = 5000;
 const _claudeKey = process.env.ANTHROPIC_API_KEY;
 
 function buildPrompt(userData) {
-    console.log(userData);
     const record = userData.records.sort((a, b) => new Date(a.date) - new Date(b.date)).slice(-1)[0];
 
     const activityLevels = {
@@ -101,9 +100,9 @@ function getRequestBody(messages) {
 
 router.post('/generate-advice', async (req, res) => {
   const userData = req.body.user_data;
-    console.log(userData);
 
   const prompt = buildPrompt(userData);
+  console.log(prompt);
   try {
     const response = await fetch(_baseUrl, {
       method: 'POST',

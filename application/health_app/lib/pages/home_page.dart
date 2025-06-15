@@ -180,22 +180,22 @@ class _HomePageState extends State<HomePage> {
               ],
             )),
         // Nút nổi
-        // Positioned(
-        //   bottom: 20, // Khoảng cách từ cạnh dưới
-        //   right: 20, // Khoảng cách từ cạnh phải
-        //   child: FloatingActionButton(
-        //     onPressed: () {
-        //       // Hành động khi nhấn nút
-        //       Navigator.pushNamed(context, "/ble-screen");
-        //     },
-        //     backgroundColor: AppColors.mainColor, // Màu nền nút
-        //     foregroundColor: Colors.white, // Màu biểu tượng
-        //     child: const Icon(
-        //       Icons.monitor_weight,
-        //       size: 40,
-        //     ), // Biểu tượng trên nút
-        //   ),
-        // ),
+          // Positioned(
+          //   bottom: 20, // Khoảng cách từ cạnh dưới
+          //   right: 20, // Khoảng cách từ cạnh phải
+          //   child: FloatingActionButton(
+          //     onPressed: () {
+          //       // Hành động khi nhấn nút
+          //       Navigator.pushNamed(context, "/ble-screen");
+          //     },
+          //     backgroundColor: AppColors.mainColor, // Màu nền nút
+          //     foregroundColor: Colors.white, // Màu biểu tượng
+          //     child: const Icon(
+          //       Icons.monitor_weight,
+          //       size: 40,
+          //     ), // Biểu tượng trên nút
+          //   ),
+          // ),
       ],
     );
   }
