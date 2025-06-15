@@ -90,13 +90,20 @@ cd your-flutter-project
 
 ## Step 2: Install dependencies
 
+- For frontend (flutter)
 ```bash
 flutter pub get
+```
+
+- For backend (express.js)
+```bash
+npm install
 ```
 
 
 ## 🧪 Step 3: Check Your Environment
 
+- For frontend (flutter)
 ```bash
 flutter doctor
 ```
@@ -108,19 +115,16 @@ flutter doctor
 
 ## 📱 Step 4: Run the App
 
+### Backend
+```bash
+npm start
+```
+
 ### On emulator or physical device:
 ```bash
 flutter run
 ```
 
 
-## 📁 Project Structure Overview
-
-```
-lib/
-├── main.dart          // Entry point of the app
-├── screens/           // Application screens
-├── widgets/           // Reusable widgets
-├── models/            // Data models
-└── services/          // API or database services
-```
+## Notes
+- Remember to change API_URL in lib/const to the url your server running on
