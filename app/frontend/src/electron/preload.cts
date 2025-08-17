@@ -4,10 +4,22 @@ electron.contextBridge.exposeInMainWorld('electronAPI', {
     startBLE: () => ipcSend('start-ble'),
     startFaceAnalyzer: (data) => ipcSend('start-face', data),
     onGettingWeight: (callback) => ipcOn('weight-data', callback),
-    getMetrics:  (faceData) => ipcInvoke<'get-metrics', HealthRecord>('get-metrics', faceData),
+    getMetrics: (faceData) => ipcInvoke<'get-metrics', HealthRecord>('get-metrics', faceData),
     resetUserState: () => ipcSend('reset-user-state'),
     getFaceData: () => ipcInvoke<'get-face-data', FaceData>('get-face-data'),
     rotateCamera: (direction) => ipcSend('rotate-camera', direction),
+    getAIResponse: (userData) => ipcInvoke<'get-ai-response', AIResponse>('get-ai-response', userData),
+    startCCCD: (data) => ipcSend('start-cccd', data),
+
+    startScan: () => ipcInvoke<'start-scan', QrResponseMessage>('start-scan'),
+    onScanResult: (callback) => ipcOn('scan-data', callback),
+
+    getAllRecords: () => ipcInvoke('get-all-records'),
+    getRecord: (id) => ipcInvoke('get-record', id),
+    addRecord: (record) => ipcInvoke('add-record', record),
+    updateRecord: (id, record) => ipcInvoke('update-record', [id, record]),
+    deleteRecord: (id) => ipcInvoke('delete-record', id),
+    getRecordByDate: (args) => ipcInvoke<'get-record-by-date', GetRecordByDateResult>('get-record-by-date', args),
 } satisfies Window['electronAPI']);
 
 function ipcSend<Key extends keyof EventPayloadMapping>(

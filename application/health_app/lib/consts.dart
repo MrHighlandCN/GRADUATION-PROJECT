@@ -12,7 +12,8 @@ class AppColors {
 }
 
 // const String API_URL = "http://caonguyen-laptop:5000/api";
-const String API_URL = "http://192.168.1.5:5000/api";
+// const String API_URL = "http://192.168.1.5:5000/api";
+const String API_URL = "https://health-app-server-j2mc.onrender.com/api";
 // const String API_URL = "http://trucle-pc:5000/api";
 // const String API_URL = "http://truc-laptop:5000/api";
 

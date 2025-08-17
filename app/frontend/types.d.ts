@@ -16,6 +16,20 @@ interface WeightPayload {
     message: string;
 }
 
+type GetRecordByDateArgs = {
+    startDate: string; // hoặc Date, nhưng thường IPC nên truyền string
+    endDate: string;
+    page?: number;
+    pageSize?: number;
+};
+
+type GetRecordByDateResult = {
+    data: RecordData[];
+    totalRecords: number;
+    totalPages: number;
+    currentPage: number;
+};
+
 type EventPayloadMapping = {
     'start-ble': void;
     'weight-data': WeightPayload;
@@ -24,6 +38,17 @@ type EventPayloadMapping = {
     'reset-user-state': void;
     'get-face-data': void;
     'rotate-camera': Direction;
+    'get-ai-response': UserData;
+    'start-cccd': string;
+    'start-scan': QrResponseMessage;
+    'scan-data': { barcode: string };
+
+    'get-all-records': void;
+    'get-record': string;
+    'add-record': Data;
+    'update-record': [string, Partial<Data>];
+    'delete-record': string;
+    'get-record-by-date': GetRecordByDateArgs;
 };
 
 type UserData = {
@@ -38,6 +63,7 @@ type FaceData = {
     age: number;
     gender: string;
     race: string;
+    height?: number;
 };
 
 interface HealthRecord {
@@ -59,9 +85,58 @@ interface HealthRecord {
     overviewScore: OverallHealthEvaluation;
 };
 
+interface RecordData {
+    id?: string;
+    gender: string
+    race: string
+    activityFactor: number
+    record: HealthRecord | null
+}
+
+interface DBData {
+    records: RecordData[]
+}
+
 type Direction = "up" | "down" | "stop" | "default";
 
 type UnsubscribeFunction = () => void;
+
+type AIResponse = {
+    overview: string;
+    diet: {
+        calories: {
+            maintain: string;
+            cut: string;
+            bulk: string;
+        };
+        macros: {
+            protein: string;
+            carbs: string;
+            fats: string;
+        };
+        supplements: string;
+    };
+    workout: {
+        cardio: string;
+        strength: string[];
+        frequency: string;
+        note: string;
+    };
+};
+type ParsedCCCD = {
+    cccd_id: string;
+    cmnd_id: string;
+    name: string;
+    dob: string;
+    gender: string;
+    address: string;
+    issue_date: string;
+};
+
+type QrResponseMessage = {
+    success: boolean;
+    message: string;
+}
 
 interface Window {
     electronAPI: {
@@ -72,5 +147,19 @@ interface Window {
         resetUserState: () => void;
         getFaceData: () => Promise<FaceData>;
         rotateCamera: (direction: Direction) => void;
+        getAIResponse: (user_data: UserData) => Promise<AIResponse>;
+        startCCCD: (data: string) => void;
+        startScan: () => Promise<QrResponseMessage>;
+        onScanResult: (callback: (data: { barcode: string }) => void) => UnsubscribeFunction;
+
+        getAllRecords: () => Promise<RecordData[]>;
+        getRecord: (id: string) => Promise<RecordData | null>;
+        addRecord: (record: RecordData) => Promise<void>;
+        updateRecord: (id: string, record: Partial<RecordData>) => Promise<boolean>;
+        deleteRecord: (id: string) => Promise<boolean>;
+        getRecordByDate: (
+            args: GetRecordByDateArgs
+        ) => Promise<GetRecordByDateResult>;
+
     };
 }
